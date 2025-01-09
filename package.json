@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/holepunchto/passive-core-watcher.git"
   },
+  "files": [
+    "index.js"
+  ],
   "keywords": [
     "Corestore",
     "hypercore"
