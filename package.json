@@ -1,5 +1,5 @@
 {
-  "name": "passive-watcher",
+  "name": "passive-core-watcher",
   "version": "0.0.0",
   "description": "Run conditional logic on a corestore's hypercores",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/holepunchto/passive-watcher.git"
+    "url": "git+https://github.com/holepunchto/passive-core-watcher.git"
   },
   "keywords": [
     "Corestore",
@@ -17,9 +17,9 @@
   "author": "Holepunch",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/holepunchto/passive-watcher/issues"
+    "url": "https://github.com/holepunchto/passive-core-watcher/issues"
   },
-  "homepage": "https://github.com/holepunchto/passive-watcher#readme",
+  "homepage": "https://github.com/holepunchto/passive-core-watcher#readme",
   "devDependencies": {
     "standard": "^17.1.2"
   },
