@@ -22,5 +22,12 @@
   "homepage": "https://github.com/holepunchto/passive-core-watcher#readme",
   "devDependencies": {
     "standard": "^17.1.2"
+  },
+  "dependencies": {
+    "b4a": "^1.6.7",
+    "hypercore": "holepunchto/hypercore#rocksdb",
+    "hypercore-crypto": "^3.4.2",
+    "hypercore-id-encoding": "^1.3.0",
+    "ready-resource": "^1.1.1"
   }
 }
