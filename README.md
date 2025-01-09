@@ -1,16 +1,16 @@
-# Passive Watcher
+# Passive Core Watcher
 
 Run conditional logic on a corestore's hypercores when they open. Useful for example when one hypercore being active implies other hypercores should be active too.
 
 ```
-npm i passive-watcher
+npm i passive-core-watcher
 ```
 
 ## API
 
-#### `const watcher = new PassiveWatcher(corestore, { watch, open })`
+#### `const watcher = new PassiveCoreWatcher(corestore, { watch, open })`
 
-Create a new passive watcher.
+Create a new passive core watcher.
 
 `corestore` is a Corestore
 

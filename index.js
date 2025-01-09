@@ -4,7 +4,7 @@ const b4a = require('b4a')
 const HypCrypto = require('hypercore-crypto')
 const IdEnc = require('hypercore-id-encoding')
 
-class PassiveWatcher extends ReadyResource {
+class PassiveCoreWatcher extends ReadyResource {
   constructor (corestore, { watch, open }) {
     super()
 
@@ -65,4 +65,4 @@ class PassiveWatcher extends ReadyResource {
   }
 }
 
-module.exports = PassiveWatcher
+module.exports = PassiveCoreWatcher
