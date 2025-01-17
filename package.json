@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "b4a": "^1.6.7",
-    "hypercore": "github:holepunchto/hypercore#rocksdb",
+    "hypercore": "^11.0.1",
     "hypercore-crypto": "^3.4.2",
     "hypercore-id-encoding": "^1.3.0",
     "ready-resource": "^1.1.1"
