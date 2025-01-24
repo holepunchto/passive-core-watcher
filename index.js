@@ -15,10 +15,13 @@ class PassiveCoreWatcher extends EventEmitter {
     this._oncoreopenBound = this._oncoreopen.bind(this)
     this._openCores = new Map()
 
-    this.store.watch(this._oncoreopenBound)
-    for (const core of this.store.cores.map.values()) {
-      this._oncoreopenBound(core) // never rejects
-    }
+    // Give time to add event handlers
+    setImmediate(() => {
+      this.store.watch(this._oncoreopenBound)
+      for (const core of this.store.cores.map.values()) {
+        this._oncoreopenBound(core) // never rejects
+      }
+    })
   }
 
   destroy () {
