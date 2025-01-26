@@ -15,8 +15,11 @@ class PassiveCoreWatcher extends EventEmitter {
     this._oncoreopenBound = this._oncoreopen.bind(this)
     this._openCores = new Map()
 
+    this.destroyed = false
+
     // Give time to add event handlers
-    setImmediate(() => {
+    queueMicrotask(() => {
+      if (this.destroyed) return
       this.store.watch(this._oncoreopenBound)
       for (const core of this.store.cores.map.values()) {
         this._oncoreopenBound(core) // never rejects
@@ -25,6 +28,7 @@ class PassiveCoreWatcher extends EventEmitter {
   }
 
   destroy () {
+    this.destroyed = true
     this.store.unwatch(this._oncoreopenBound)
     for (const core of this._openCores.values()) {
       core.close().catch(safetyCatch)
