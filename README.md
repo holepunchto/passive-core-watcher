@@ -10,7 +10,7 @@ npm i passive-core-watcher
 
 #### `const watcher = new PassiveCoreWatcher(corestore, { watch, open })`
 
-Create a new passive core watcher.
+Create a new passive core watcher, and start watching new cores. Existing cores are also processed (e.g. `open` will be called for all existing cores for which `watch` returns true).
 
 `corestore` is a Corestore
 
@@ -22,13 +22,7 @@ The session emits a `close` event when it is closing. If teardown of the side ef
 
 `session.on('close', () => { /* run teardown logic for side effects */ } )`
 
-#### `await watcher.ready()`
-
-Setup the passive watcher, so it starts listening for new hypercores.
-
-This also checks which of the already-opened hypercores need to be watched, and calls the `open` function for those.
-
-#### `await watcher.close()`
+#### `watcher.destroy()`
 
 Stops watching the corestore for new cores, and closes all weak sessions.
 

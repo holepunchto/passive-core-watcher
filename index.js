@@ -1,31 +1,38 @@
-const ReadyResource = require('ready-resource')
+const { EventEmitter } = require('events')
 const Hypercore = require('hypercore')
 const b4a = require('b4a')
 const HypCrypto = require('hypercore-crypto')
 const IdEnc = require('hypercore-id-encoding')
+const safetyCatch = require('safety-catch')
 
-class PassiveCoreWatcher extends ReadyResource {
+class PassiveCoreWatcher extends EventEmitter {
   constructor (corestore, { watch, open }) {
     super()
-
     this.store = corestore
     this.watch = watch
     this.open = open
 
     this._oncoreopenBound = this._oncoreopen.bind(this)
     this._openCores = new Map()
+
+    this.destroyed = false
+
+    // Give time to add event handlers
+    queueMicrotask(() => {
+      if (this.destroyed) return
+      this.store.watch(this._oncoreopenBound)
+      for (const core of this.store.cores.map.values()) {
+        this._oncoreopenBound(core) // never rejects
+      }
+    })
   }
 
-  async _open () {
-    this.store.watch(this._oncoreopenBound)
-    await Promise.all(
-      [...this.store.cores.map.values()].map(this._oncoreopenBound)
-    )
-  }
-
-  async _close () {
+  destroy () {
+    this.destroyed = true
     this.store.unwatch(this._oncoreopenBound)
-    await Promise.allSettled([...this._openCores.values()].map(c => c.close()))
+    for (const core of this._openCores.values()) {
+      core.close().catch(safetyCatch)
+    }
   }
 
   async _oncoreopen (core) { // not allowed to throw
