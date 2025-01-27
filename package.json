@@ -1,6 +1,6 @@
 {
   "name": "passive-core-watcher",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Run conditional logic on a corestore's hypercores",
   "main": "index.js",
   "scripts": {
