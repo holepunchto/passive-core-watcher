@@ -33,3 +33,9 @@ Stops watching the corestore for new cores, and closes all weak sessions.
 If the hypercore is open in the corestore, it is added to the watcher lifecycle, and the `open` method is called (does nothing otherwise).
 
 Useful when the `watch` condition might be false when the core first opens, but became true later.
+
+#### `watcher.on('oncoreopen-error', e)`
+
+Emitted when an error is thrown while a new core is being processed (for example during the passed-in `watch` or `open` functions). Useful for debugging and logging.
+
+`e` is an error object.
