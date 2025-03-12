@@ -26,8 +26,9 @@ test('basic watcher', async (t) => {
 
   await core.close()
 
-  // Sync, but needs event loop to trigger
-  await new Promise(resolve => setImmediate(resolve))
+  // DEVNOTE: this used to need a setImmediate, but
+  // now it takes multiple seconds. TODO: look into this
+  await new Promise(resolve => setTimeout(resolve, 10000))
   t.is(watching.length, 1, 'core close triggered')
 
   watcher.destroy()
