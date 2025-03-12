@@ -1,3 +1,4 @@
+const { once } = require('events')
 const test = require('brittle')
 const Corestore = require('corestore')
 const tmpDir = require('test-tmp')
@@ -24,11 +25,11 @@ test('basic watcher', async (t) => {
 
   t.is(watching.length, 2, 'watching 2 cores')
 
-  await core.close()
+  await Promise.all([
+    once(watcher, 'gc'), // Expected to take multiple seconds (due to corestore internal pool logic)
+    core.close()
+  ])
 
-  // DEVNOTE: this used to need a setImmediate, but
-  // now it takes multiple seconds. TODO: look into this
-  await new Promise(resolve => setTimeout(resolve, 10000))
   t.is(watching.length, 1, 'core close triggered')
 
   watcher.destroy()
