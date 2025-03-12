@@ -66,6 +66,7 @@ class PassiveCoreWatcher extends EventEmitter {
 
     session.on('close', () => {
       this._openCores.delete(discKey)
+      this.emit('gc', discKey)
     })
 
     await this.open(session)
