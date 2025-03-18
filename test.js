@@ -7,6 +7,10 @@ const b4a = require('b4a')
 const PassiveCoreWatcher = require('.')
 
 test('basic watcher', async (t) => {
+  // Hack to avoid event-loop ending due to absent sessions (it's a weak ref)
+  const s = setInterval(() => {}, 1000)
+  t.teardown(() => clearInterval(s))
+
   const store = new Corestore(await tmpDir())
 
   const watching = []
