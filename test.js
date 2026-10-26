@@ -38,7 +38,7 @@ test('basic watcher', async (t) => {
 
   watcher.destroy()
 
-  await new Promise(resolve => setImmediate(resolve))
+  await new Promise((resolve) => setImmediate(resolve))
   t.is(watching.length, 0, 'weakSessions close when watcher closes')
   t.is(core2.closed, false, 'Core itself did not close')
 })
@@ -56,7 +56,7 @@ test('processes already-opened cores', async (t) => {
   }
   const watcher = new PassiveCoreWatcher(store, { watch, open })
 
-  await new Promise(resolve => setImmediate(resolve))
+  await new Promise((resolve) => setImmediate(resolve))
   t.is(watching.length, 2)
 
   watcher.destroy()
@@ -77,8 +77,11 @@ test('does not process cores for which watch returns false', async (t) => {
   }
   const watcher = new PassiveCoreWatcher(store, { watch, open })
 
-  await new Promise(resolve => setImmediate(resolve))
-  t.alike(watching.map(c => c.key), [core.key])
+  await new Promise((resolve) => setImmediate(resolve))
+  t.alike(
+    watching.map((c) => c.key),
+    [core.key]
+  )
 
   watcher.destroy()
 })

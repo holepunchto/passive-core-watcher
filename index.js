@@ -6,7 +6,7 @@ const IdEnc = require('hypercore-id-encoding')
 const safetyCatch = require('safety-catch')
 
 class PassiveCoreWatcher extends EventEmitter {
-  constructor (corestore, { watch, open }) {
+  constructor(corestore, { watch, open }) {
     super()
     this.store = corestore
     this.watch = watch
@@ -27,7 +27,7 @@ class PassiveCoreWatcher extends EventEmitter {
     })
   }
 
-  destroy () {
+  destroy() {
     this.destroyed = true
     this.store.unwatch(this._oncoreopenBound)
     for (const core of this._openCores.values()) {
@@ -35,7 +35,8 @@ class PassiveCoreWatcher extends EventEmitter {
     }
   }
 
-  async _oncoreopen (core) { // not allowed to throw
+  async _oncoreopen(core) {
+    // not allowed to throw
     try {
       if (await this.watch(core)) {
         await core.ready()
@@ -46,7 +47,7 @@ class PassiveCoreWatcher extends EventEmitter {
     }
   }
 
-  async ensureTracked (key) {
+  async ensureTracked(key) {
     key = IdEnc.decode(key)
 
     const discKey = b4a.toString(HypCrypto.discoveryKey(key), 'hex')
@@ -59,7 +60,8 @@ class PassiveCoreWatcher extends EventEmitter {
     // Must be sync up till the line above, for the accounting
 
     await session.ready()
-    if (session.closing) { // race condition (insta close)
+    if (session.closing) {
+      // race condition (insta close)
       this._openCores.delete(discKey)
       return
     }
